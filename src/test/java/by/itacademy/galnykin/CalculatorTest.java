@@ -1,4 +1,4 @@
 package by.itacademy.galnykin;
 
-public class calculatorTest {
+public class CalculatorTest {
 }
