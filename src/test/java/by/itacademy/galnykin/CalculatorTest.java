@@ -45,4 +45,20 @@ public class CalculatorTest {
         // Assert
         Assertions.assertEquals(expected, result);
     }
+
+    // Multiply tests
+    @Test
+    @DisplayName("Multiplication of two positive numbers should return positive result")
+    void multiply_TwoPositiveNumbers_ReturnsPositiveResult() {
+        // Arrange
+        int a = 3;
+        int b = 2;
+        int expected = 6;
+
+        // Act
+        int result = calculator.multiply(a, b);
+
+        // Assert
+        Assertions.assertEquals(expected, result);
+    }
 }
