@@ -57,6 +57,25 @@ public class Calculator implements ICalculator {
 
     @Override
     public double divide(int a, int b) {
-        return (double) a / b;
+        try {
+            if (hasDivisionByZero(b)) {
+                throw new ArithmeticException("Division by zero is not allowed");
+            }
+            if (hasIntegerOverFlowInDivision(a, b)) {
+                throw new ArithmeticException("Integer overflow in division operation");
+            }
+            return (double) a / b;
+        } catch (ArithmeticException e) {
+            System.err.println("Error in divide: " + e.getMessage());
+            throw e;
+        }
+    }
+
+    private static boolean hasDivisionByZero(int b) {
+        return b == 0;
+    }
+
+    private static boolean hasIntegerOverFlowInDivision(int a, int b) {
+        return a == Integer.MIN_VALUE && b == -1;
     }
 }
