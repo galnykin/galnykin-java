@@ -18,11 +18,11 @@ public class Calculator implements ICalculator {
         }
     }
 
-    private static boolean hasIntegerOverflowInSum(int a, int b) {
+    private boolean hasIntegerOverflowInSum(int a, int b) {
         return b > 0 && a > Integer.MAX_VALUE - b;
     }
 
-    private static boolean hasIntegerUnderFlowInSum(int a, int b) {
+    private boolean hasIntegerUnderFlowInSum(int a, int b) {
         return b < 0 && a < Integer.MIN_VALUE - b;
     }
 
@@ -42,11 +42,11 @@ public class Calculator implements ICalculator {
         }
     }
 
-    private static boolean hasIntegerUnderFlowInSubtraction(int a, int b) {
+    private boolean hasIntegerUnderFlowInSubtraction(int a, int b) {
         return b > 0 && a < Integer.MIN_VALUE + b;
     }
 
-    private static boolean hasIntegerOverFlowInSubtraction(int a, int b) {
+    private boolean hasIntegerOverFlowInSubtraction(int a, int b) {
         return b < 0 && a > Integer.MAX_VALUE + b;
     }
 
@@ -62,13 +62,13 @@ public class Calculator implements ICalculator {
         }
     }
 
-    private static void checkForIntegerUnderFlowInMultiply(int a, int b) {
+    private void checkForIntegerUnderFlowInMultiply(int a, int b) {
         if (a > 0 && b < 0 && b < Integer.MIN_VALUE / a) {
             throw new ArithmeticException("Integer underflow in multiply operation");
         }
     }
 
-    private static void checkForIntegerOverFlowInMultiply(int a, int b) {
+    private void checkForIntegerOverFlowInMultiply(int a, int b) {
         if (a > 0 && b > 0 && a > Integer.MAX_VALUE / b) {
             throw new ArithmeticException("Integer overflow in multiply operation");
         }
@@ -96,11 +96,11 @@ public class Calculator implements ICalculator {
         }
     }
 
-    private static boolean hasDivisionByZero(int b) {
+    private boolean hasDivisionByZero(int b) {
         return b == 0;
     }
 
-    private static boolean hasIntegerOverFlowInDivision(int a, int b) {
+    private boolean hasIntegerOverFlowInDivision(int a, int b) {
         return a == Integer.MIN_VALUE && b == -1;
     }
 }
