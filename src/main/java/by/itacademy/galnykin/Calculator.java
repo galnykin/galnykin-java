@@ -52,7 +52,32 @@ public class Calculator implements ICalculator {
 
     @Override
     public int multiply(int a, int b) {
-        return a * b;
+        try {
+            checkForIntegerUnderFlowInMultiply(a, b);
+            checkForIntegerOverFlowInMultiply(a, b);
+            return a * b;
+        } catch (ArithmeticException e) {
+            System.err.println("Error in multiply: " + e.getMessage());
+            throw e;
+        }
+    }
+
+    private static void checkForIntegerUnderFlowInMultiply(int a, int b) {
+        if (a > 0 && b < 0 && b < Integer.MIN_VALUE / a) {
+            throw new ArithmeticException("Integer underflow in multiply operation");
+        }
+    }
+
+    private static void checkForIntegerOverFlowInMultiply(int a, int b) {
+        if (a > 0 && b > 0 && a > Integer.MAX_VALUE / b) {
+            throw new ArithmeticException("Integer overflow in multiply operation");
+        }
+        if (a < 0 && b > 0 && a < Integer.MIN_VALUE / b) {
+            throw new ArithmeticException("Integer overflow in multiply operation");
+        }
+        if (a < 0 && b < 0 && a < Integer.MAX_VALUE / b) {
+            throw new ArithmeticException("Integer overflow in multiply operation");
+        }
     }
 
     @Override
