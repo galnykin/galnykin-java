@@ -14,7 +14,7 @@ public class Calculator implements ICalculator {
             return a + b;
         } catch (ArithmeticException e) {
             System.err.println("Error in sum: " + e.getMessage());
-            return 0;
+            throw e;
         }
     }
 
@@ -28,7 +28,26 @@ public class Calculator implements ICalculator {
 
     @Override
     public int subtract(int a, int b) {
-        return a - b;
+        try {
+            if (hasIntegerOverFlowInSubtraction(a, b)) {
+                throw new ArithmeticException("Integer overflow in subtract operation");
+            }
+            if (hasIntegerUnderFlowInSubtraction(a, b)) {
+                throw new ArithmeticException("Integer underflow in subtract operation");
+            }
+            return a - b;
+        } catch (ArithmeticException e) {
+            System.err.println("Error in subtract: " + e.getMessage());
+            throw e;
+        }
+    }
+
+    private static boolean hasIntegerUnderFlowInSubtraction(int a, int b) {
+        return b > 0 && a < Integer.MIN_VALUE + b;
+    }
+
+    private static boolean hasIntegerOverFlowInSubtraction(int a, int b) {
+        return b < 0 && a > Integer.MAX_VALUE + b;
     }
 
     @Override
