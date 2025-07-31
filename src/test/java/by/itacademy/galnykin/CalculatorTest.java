@@ -61,4 +61,22 @@ public class CalculatorTest {
         // Assert
         Assertions.assertEquals(expected, result);
     }
+
+
+    // Divide tests
+    @Test
+    @DisplayName("Division of two positive numbers should return correct result")
+    void divide_TwoPositiveNumbers_ReturnsCorrectQuotient() {
+        // Arrange
+        int a = 6;
+        int b = 2;
+        double expected = 3.0;
+        double delta = 0.0001;
+
+        // Act
+        double result = calculator.divide(a, b);
+
+        // Assert
+        Assertions.assertEquals(expected, result, delta);
+    }
 }
