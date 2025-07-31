@@ -3,8 +3,12 @@ package by.itacademy.galnykin;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CalculatorTest {
 
     private Calculator calculator;
@@ -16,6 +20,7 @@ public class CalculatorTest {
 
     // Sum tests
     @Test
+    @Order(1)
     @DisplayName("Sum of two positive numbers should return correct result")
     void sum_TwoPositiveNumbers_ReturnsCorrectSum() {
         // Arrange
@@ -32,6 +37,7 @@ public class CalculatorTest {
 
     // Subtract tests
     @Test
+    @Order(2)
     @DisplayName("Subtraction of two positive numbers should return correct result")
     void subtract_TwoPositiveNumbers_ReturnsCorrectDifference() {
         // Arrange
@@ -48,6 +54,7 @@ public class CalculatorTest {
 
     // Multiply tests
     @Test
+    @Order(4)
     @DisplayName("Multiplication of two positive numbers should return positive result")
     void multiply_TwoPositiveNumbers_ReturnsPositiveResult() {
         // Arrange
@@ -65,6 +72,7 @@ public class CalculatorTest {
 
     // Divide tests
     @Test
+    @Order(3)
     @DisplayName("Division of two positive numbers should return correct result")
     void divide_TwoPositiveNumbers_ReturnsCorrectQuotient() {
         // Arrange
