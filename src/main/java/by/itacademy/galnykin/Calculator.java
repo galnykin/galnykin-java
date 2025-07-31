@@ -9,16 +9,16 @@ public class Calculator implements ICalculator {
 
     @Override
     public int subtract(int a, int b) {
-        return 0;
+        return a - b;
     }
 
     @Override
     public int multiply(int a, int b) {
-        return 0;
+        return a * b;
     }
 
     @Override
     public double divide(int a, int b) {
-        return 0;
+        return (double) a / b;
     }
 }
