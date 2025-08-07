@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Логические операции в Java</title>
+  </head>
+  <body>
+    <h1>Логические операции</h1>
+
+    <p>Логические операции выполняются только с операторами boolean.</p>
+
+    <h2>Таблица 1. Логические операции в Java</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Операция</th>
+          <th>Описание</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>&amp;&amp;</td>
+          <td>Укороченная логическая операция И</td>
+        </tr>
+        <tr>
+          <td>||</td>
+          <td>Укороченная логическая операция ИЛИ</td>
+        </tr>
+        <tr>
+          <td>!=</td>
+          <td>Неравенство</td>
+        </tr>
+        <tr>
+          <td>==</td>
+          <td>Равенство</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Таблица 2. Результаты выполнения логических операций</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Операнд A</th>
+          <th>Операнд B</th>
+          <th>Операция И (A &amp;&amp; B)</th>
+          <th>Операция ИЛИ (A || B)</th>
+          <th>Отрицание !A</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>false</td>
+          <td>false</td>
+          <td>false</td>
+          <td>false</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>true</td>
+          <td>false</td>
+          <td>false</td>
+          <td>true</td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>false</td>
+          <td>true</td>
+          <td>false</td>
+          <td>true</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>true</td>
+          <td>true</td>
+          <td>true</td>
+          <td>true</td>
+          <td>false</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <br />
+
+    <a
+      href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html"
+      target="_blank"
+      >The Java Tutorials - Operators</a
+    >
+  </body>
+</html>
