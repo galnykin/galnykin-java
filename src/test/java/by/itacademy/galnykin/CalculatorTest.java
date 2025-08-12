@@ -39,7 +39,7 @@ public class CalculatorTest {
     @Test
     @Order(2)
     @DisplayName("Subtraction of two positive numbers should return correct result")
-    void subtract_TwoPositiveNumbers_ReturnsCorrectDifference() {
+    void testSubtractTwoPositiveNumbersReturnsCorrectDifference() {
         // Arrange
         int a = 5;
         int b = 3;
