@@ -1,6 +1,8 @@
 package by.belavia;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +12,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 
 public class LoginTest {
+
+    WebDriver driver;
+
     @Test
     public void test1() {
         String url = "https://belavia.by/";
@@ -37,6 +42,32 @@ public class LoginTest {
                 "Если у вас нет аккаунта — он создастся автоматически",
                 textAccountFormText);
 
+        driver.quit();
+    }
+
+    @BeforeEach
+    public void setup() {
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
+
+    }
+
+    @Test
+    public void test2() {
+
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.openSite();
+        loginPage.clickLinkAccount();
+
+        Assertions.assertEquals("Вход", loginPage.getTitleAccountFormText());
+        Assertions.assertEquals(
+                "Если у вас нет аккаунта — он создастся автоматически",
+                loginPage.getTextAccountFormText());
+    }
+
+    @AfterEach
+    public void tearDown() {
         driver.quit();
     }
 }
