@@ -50,15 +50,15 @@ public class HomePage {
     }
 
     public boolean isCookiesBannerVisible() {
-        return WebDriverSingleton.isElementVisible(COOKIES_BLOCK);
+        return WebDriverSingleton.isElementDisplayed(COOKIES_BLOCK);
     }
 
     public boolean isGameBannerVisible() {
-        return WebDriverSingleton.isElementVisible(GAME_BANNER);
+        return WebDriverSingleton.isElementDisplayed(GAME_BANNER);
     }
 
     public boolean isAuthFormVisible() {
-        return WebDriverSingleton.isElementVisible(AUTH_FORM);
+        return WebDriverSingleton.isElementDisplayed(AUTH_FORM);
     }
 
     public void clickCloseGameBanner() {
