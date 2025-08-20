@@ -1,15 +1,14 @@
-package by.nsv;
+package by.nsv.pages;
 
+import by.nsv.webdriver.WebDriverSingleton;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class AuthForm {
-    private final WebDriver driver;
+public class LoginForm {
 
-    private final By AUTH_FORM_TITLE = By.xpath("//div[@class='form_head']/h2");
-    private final By CLOSE_AUTH_FORM_BUTTON =
+    private final By LOGIN_FORM_TITLE = By.xpath("//div[@class='form_head']/h2");
+    private final By CLOSE_LOGIN_FORM_BUTTON =
             By.xpath("//div[contains(@class,'auth_frame')]/a[@class='close jqmClose']");
 
     private final By USER_LOGIN_INPUT = By.cssSelector("#USER_LOGIN_POPUP");
@@ -20,52 +19,48 @@ public class AuthForm {
     private final By USER_PASSWORD_POPUP_ERROR_ID = By.id("USER_PASSWORD_POPUP-error");
     private final By ALERT_DANDER_MESSAGE = By.xpath("//div[@class='alert alert-danger']/p");
 
-    public AuthForm(WebDriver driver) {
-        this.driver = driver;
-    }
-
     public boolean isAuthFormVisible() {
         try {
-            return driver.findElement(AUTH_FORM_TITLE).isDisplayed();
+            return WebDriverSingleton.isElementVisible(LOGIN_FORM_TITLE);
         } catch (NoSuchElementException e) {
             return false;
         }
     }
 
     public String getAuthFormTitleText() {
-        return driver.findElement(AUTH_FORM_TITLE).getText();
+        return WebDriverSingleton.getTextFromElement(LOGIN_FORM_TITLE);
     }
 
     public void clickCloseAuthFormButton() {
-        driver.findElement(CLOSE_AUTH_FORM_BUTTON).click();
+        WebDriverSingleton.clickElement(CLOSE_LOGIN_FORM_BUTTON);
     }
 
     public String getAlertDangerMessage() {
-        return driver.findElement(ALERT_DANDER_MESSAGE).getText();
+        return WebDriverSingleton.getTextFromElement(ALERT_DANDER_MESSAGE);
     }
 
     public void inputPassword(String password) {
-        WebElement passwordInput = driver.findElement(USER_PASSWORD_INPUT);
+        WebElement passwordInput = WebDriverSingleton.findElement(USER_PASSWORD_INPUT);
         passwordInput.clear();
         passwordInput.sendKeys(password);
     }
 
     public void inputLogin(String login) {
-        WebElement loginInput = driver.findElement(USER_LOGIN_INPUT);
+        WebElement loginInput = WebDriverSingleton.findElement(USER_LOGIN_INPUT);
         loginInput.clear();
         loginInput.sendKeys(login);
     }
 
     public void clickLoginButton() {
-        driver.findElement(LOGIN_BUTTON).click();
+        WebDriverSingleton.clickElement(LOGIN_BUTTON);
     }
 
     public String getUserLoginPopupErrorMessage() {
 
-        return driver.findElement(USER_LOGIN_POPUP_ERROR_ID).getText();
+        return WebDriverSingleton.getTextFromElement(USER_LOGIN_POPUP_ERROR_ID);
     }
 
     public String getUserPasswordPopupErrorMessage() {
-        return driver.findElement(USER_PASSWORD_POPUP_ERROR_ID).getText();
+        return WebDriverSingleton.getTextFromElement(USER_PASSWORD_POPUP_ERROR_ID);
     }
 }
