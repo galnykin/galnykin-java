@@ -47,9 +47,9 @@ public class WebDriverSingleton {
         return getDriver().findElement(locator).getText();
     }
 
-    public static boolean isElementVisible(By locator) {
+    public static boolean isElementDisplayed(By locator) {
         try {
-            return WebDriverSingleton.isElementVisible(locator);
+            return getDriver().findElement(locator).isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
