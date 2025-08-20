@@ -12,14 +12,14 @@ import java.time.Duration;
 
 public class LoginFormTest {
     private WebDriver driver;
-    private LoginForm loginForm;
+    private LoginPage loginForm;
 
     @BeforeEach
     public void setup() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
-        loginForm = new LoginForm(driver);
+        loginForm = new LoginPage(driver);
         loginForm.openSite();
     }
 
