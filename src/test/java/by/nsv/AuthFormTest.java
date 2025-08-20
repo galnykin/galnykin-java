@@ -1,7 +1,7 @@
 package by.nsv;
 
 import by.nsv.pages.HomePage;
-import by.nsv.pages.LoginForm;
+import by.nsv.pages.AuthForm;
 import by.nsv.utils.Passwords;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,15 +10,15 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 
-public class LoginFormTest extends BaseTest {
+public class AuthFormTest extends BaseTest {
 
     HomePage homePage;
-    LoginForm authForm;
+    AuthForm authForm;
 
     @BeforeEach
     public void setUpPreLoginState() {
         homePage = new HomePage();
-        authForm = new LoginForm();
+        authForm = new AuthForm();
 
         homePage.openSite();
         homePage.closeGameBannerIfVisible();
@@ -30,6 +30,7 @@ public class LoginFormTest extends BaseTest {
     @Test
     @DisplayName("Текст заголовка формы авторизации")
     public void testLoginFormTitleText() {
+
         Assertions.assertEquals("Личный кабинет", authForm.getAuthFormTitleText(),
                 "Неверный заголовок формы логина");
     }
