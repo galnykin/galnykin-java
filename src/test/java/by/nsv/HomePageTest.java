@@ -32,7 +32,6 @@ public class HomePageTest extends BaseTest {
                 "Перед принятием всех cookies баннер должен быть видим");
 
         homePage.clickAcceptAllCookiesButton();
-//        homePage.waitUntilCookiesBannerDisappears(Duration.ofSeconds(2));
 
         Assertions.assertFalse(homePage.isCookiesBannerVisible(),
                 "После принятия всех cookies баннер должен исчезнуть");
@@ -41,7 +40,6 @@ public class HomePageTest extends BaseTest {
     @Test
     @DisplayName("Баннер игры отображается на главной странице")
     void testGameBannerIsVisible() {
-//        homePage.waitUntilGameBannerIsClickable(Duration.ofSeconds(7));
         Assertions.assertTrue(homePage.isGameBannerVisible(),
                 "Баннер должен быть видим при загрузке страницы");
     }
