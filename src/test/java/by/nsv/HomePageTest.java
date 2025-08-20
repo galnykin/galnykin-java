@@ -1,5 +1,6 @@
 package by.nsv;
 
+import by.nsv.pages.HomePage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +14,7 @@ public class HomePageTest extends BaseTest {
 
     @BeforeEach
     public void setUpHomePage() {
-        homePage = new HomePage(driver);
+        homePage = new HomePage();
         homePage.openSite();
     }
 
@@ -59,10 +60,10 @@ public class HomePageTest extends BaseTest {
     @DisplayName("Проверка отображения формы авторизации")
     void testClickAuthLink() {
         homePage.closeGameBannerIfVisible();
-        homePage.acceptAllCookiesIfVisible();
-        homePage.waitUntilAuthLinkIsClickable(Duration.ofSeconds(2));
+        homePage.clickAcceptAllCookiesButton()
+                .waitUntilAuthLinkIsClickable(Duration.ofSeconds(2))
+                .clickAuthLink();
 
-        homePage.clickAuthLink();
         Assertions.assertTrue(homePage.isAuthFormVisible(),
                 "После перехода по ссылке авторизации должна отображаться форма авторизации");
     }
