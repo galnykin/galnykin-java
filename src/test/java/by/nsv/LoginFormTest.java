@@ -1,5 +1,8 @@
 package by.nsv;
 
+import by.nsv.pages.HomePage;
+import by.nsv.pages.LoginForm;
+import by.nsv.utils.Passwords;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -7,21 +10,21 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 
-public class AuthFormTest extends BaseTest {
+public class LoginFormTest extends BaseTest {
 
     HomePage homePage;
-    AuthForm authForm;
+    LoginForm authForm;
 
     @BeforeEach
     public void setUpPreLoginState() {
-        homePage = new HomePage(driver);
-        authForm = new AuthForm(driver);
+        homePage = new HomePage();
+        authForm = new LoginForm();
 
         homePage.openSite();
-        homePage.acceptAllCookiesIfVisible();
         homePage.closeGameBannerIfVisible();
-        homePage.waitUntilAuthLinkIsClickable(Duration.ofSeconds(2));
-        homePage.clickAuthLink();
+        homePage.clickAcceptAllCookiesButton()
+                .waitUntilAuthLinkIsClickable(Duration.ofSeconds(2))
+                .clickAuthLink();
     }
 
     @Test
@@ -80,15 +83,15 @@ public class AuthFormTest extends BaseTest {
     @Test
     @DisplayName("Сообщение об ошибке при вводе короткого пароля")
     void testShortPasswordShowErrorMessage() {
-        // Arrange
-        String shortPassword = "1";
+        // Arrange (given)
+        String shortPassword = Passwords.generateRandomPassword(5);
         String expectedErrorMessage = "Минимум 6 символов";
 
-        // Act
+        // Act (when)
         authForm.inputPassword(shortPassword);
         authForm.clickLoginButton();
 
-        // Assert
+        // Assert (then)
         String actualErrorMessage = authForm.getUserPasswordPopupErrorMessage();
         Assertions.assertEquals(expectedErrorMessage, actualErrorMessage,
                 "Сообщение об ошибке для пароля не соответствует ожидаемому");
