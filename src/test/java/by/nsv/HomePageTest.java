@@ -1,46 +1,47 @@
 package by.nsv;
 
-import by.nsv.pages.HomePage;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 
-public class HomePageTest extends BaseTest {
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-    HomePage homePage;
+public class HomePageTest extends BaseTest {
 
     @BeforeEach
     public void setUpHomePage() {
-        homePage = new HomePage();
-        homePage.openSite();
+    }
+
+    @Override
+    protected void customizeSetup() {
     }
 
     @Test
     @DisplayName("Баннер cookies отображается при загрузке страницы")
     void testCookiesBannerIsVisibleOnLoad() {
-        Assertions.assertTrue(homePage.isCookiesBannerVisible(),
+        assertTrue(homePage.isCookiesBannerVisible(),
                 "Баннер cookies должен быть видим при загрузке страницы");
     }
 
     @Test
     @DisplayName("Баннер cookies исчезает после принятия всех cookies")
     void testCookiesBannerDisappearsAfterAcceptAllCookies() {
-        Assertions.assertTrue(homePage.isCookiesBannerVisible(),
+        assertTrue(homePage.isCookiesBannerVisible(),
                 "Перед принятием всех cookies баннер должен быть видим");
 
         homePage.clickAcceptAllCookiesButton();
 
-        Assertions.assertFalse(homePage.isCookiesBannerVisible(),
+        assertFalse(homePage.isCookiesBannerVisible(),
                 "После принятия всех cookies баннер должен исчезнуть");
     }
 
     @Test
     @DisplayName("Баннер игры отображается на главной странице")
     void testGameBannerIsVisible() {
-        Assertions.assertTrue(homePage.isGameBannerVisible(),
+        assertTrue(homePage.isGameBannerVisible(),
                 "Баннер должен быть видим при загрузке страницы");
     }
 
@@ -50,19 +51,18 @@ public class HomePageTest extends BaseTest {
 //        testGameBannerIsVisible();
         homePage.clickCloseGameBanner();
 //        homePage.waitUntilGameBannerDisappears(Duration.ofSeconds(2));
-        Assertions.assertFalse(homePage.isGameBannerVisible(),
+        assertFalse(homePage.isGameBannerVisible(),
                 "Баннер должен исчезнуть после закрытия");
     }
 
     @Test
     @DisplayName("Проверка отображения формы авторизации")
     void testClickAuthLink() {
-        homePage.closeGameBannerIfVisible();
-        homePage.clickAcceptAllCookiesButton()
-                .waitUntilAuthLinkIsClickable(Duration.ofSeconds(2))
+
+        homePage.waitUntilAuthLinkIsClickable(Duration.ofSeconds(2))
                 .clickAuthLink();
 
-        Assertions.assertTrue(homePage.isAuthFormVisible(),
+        assertTrue(homePage.isAuthFormVisible(),
                 "После перехода по ссылке авторизации должна отображаться форма авторизации");
     }
 }
