@@ -1,6 +1,7 @@
 package by.nsv.pages;
 
-import by.nsv.webdriver.WebDriverSingleton;
+import by.nsv.webdriver.DriverManager;
+import by.nsv.webdriver.ElementUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -21,51 +22,46 @@ public class HomePage {
     private final By GAME_BANNER = By.xpath("//div[@class='modal_game_width_block']");
 
     public void openSite() {
-        WebDriverSingleton.getDriver().navigate().to(BASE_URL);
+        DriverManager.getDriver().navigate().to(BASE_URL);
     }
 
-    public void closeGameBannerIfVisible() {
-        if (isGameBannerVisible()) {
-            clickCloseGameBanner();
+    public HomePage clickCloseGameBanner() {
+        try {
+            click(CLOSE_MODAL_GAME_BANNER);
+        } catch (Exception e) {
+            System.out.println("Баннера не было, баннер не закрывался");
         }
+        return this;
     }
 
-    private void clickElement(By xpath) {
-        WebDriverSingleton.clickElement(xpath);
+    private void click(By locator) {
+        ElementUtils.click(locator);
     }
 
     public HomePage waitUntilAuthLinkIsClickable(Duration timeout) {
-        new WebDriverWait(WebDriverSingleton.getDriver(), timeout)
+        new WebDriverWait(DriverManager.getDriver(), timeout)
                 .until(ExpectedConditions.elementToBeClickable(AUTH_LINK));
         return this;
     }
 
     public void clickAuthLink() {
-        clickElement(AUTH_LINK);
+        click(AUTH_LINK);
     }
 
     public HomePage clickAcceptAllCookiesButton() {
-        clickElement(ACCEPT_ALL_COOKIES_BUTTON);
+        click(ACCEPT_ALL_COOKIES_BUTTON);
         return this;
     }
 
     public boolean isCookiesBannerVisible() {
-        return WebDriverSingleton.isElementDisplayed(COOKIES_BLOCK);
+        return ElementUtils.isDisplayed(COOKIES_BLOCK);
     }
 
     public boolean isGameBannerVisible() {
-        return WebDriverSingleton.isElementDisplayed(GAME_BANNER);
+        return ElementUtils.isDisplayed(GAME_BANNER);
     }
 
     public boolean isAuthFormVisible() {
-        return WebDriverSingleton.isElementDisplayed(AUTH_FORM);
-    }
-
-    public void clickCloseGameBanner() {
-        try {
-            clickElement(CLOSE_MODAL_GAME_BANNER);
-        } catch (Exception e) {
-            System.out.println("Баннера не было, баннер не закрывался");
-        }
+        return ElementUtils.isDisplayed(AUTH_FORM);
     }
 }
