@@ -1,37 +1,30 @@
 package by.nsv;
 
-import by.nsv.pages.HomePage;
 import by.nsv.pages.AuthForm;
 import by.nsv.utils.Passwords;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class AuthFormTest extends BaseTest {
 
-    HomePage homePage;
     AuthForm authForm;
 
     @BeforeEach
     public void setUpPreLoginState() {
-        homePage = new HomePage();
         authForm = new AuthForm();
-
-        homePage.openSite();
-        homePage.closeGameBannerIfVisible();
-        homePage.clickAcceptAllCookiesButton()
-                .waitUntilAuthLinkIsClickable(Duration.ofSeconds(2))
+        homePage.waitUntilAuthLinkIsClickable(Duration.ofSeconds(2))
                 .clickAuthLink();
     }
 
     @Test
     @DisplayName("Текст заголовка формы авторизации")
     public void testLoginFormTitleText() {
-
-        Assertions.assertEquals("Личный кабинет", authForm.getAuthFormTitleText(),
+        assertEquals("Личный кабинет", authForm.getTitle(),
                 "Неверный заголовок формы логина");
     }
 
@@ -41,9 +34,9 @@ public class AuthFormTest extends BaseTest {
         authForm.clickLoginButton();
 
         String expectedErrorMessage = "Заполните это поле";
-        Assertions.assertEquals(expectedErrorMessage, authForm.getUserLoginPopupErrorMessage(),
+        assertEquals(expectedErrorMessage, authForm.getLoginErrorMessage(),
                 "Неверное сообщение об ошибке для логина");
-        Assertions.assertEquals(expectedErrorMessage, authForm.getUserPasswordPopupErrorMessage(),
+        assertEquals(expectedErrorMessage, authForm.getPasswordErrorMessage(),
                 "Неверное сообщение об ошибке для пароля");
     }
 
@@ -55,12 +48,12 @@ public class AuthFormTest extends BaseTest {
         String expectedErrorMessage = "Заполните это поле";
 
         // Act
-        authForm.inputPassword(validPassword);
+        authForm.setPassword(validPassword);
         authForm.clickLoginButton();
 
         // Assert
-        String actualErrorMessage = authForm.getUserLoginPopupErrorMessage();
-        Assertions.assertEquals(expectedErrorMessage, actualErrorMessage,
+        String actualErrorMessage = authForm.getLoginErrorMessage();
+        assertEquals(expectedErrorMessage, actualErrorMessage,
                 "Неверное сообщение об ошибке при пустом логине");
     }
 
@@ -72,12 +65,12 @@ public class AuthFormTest extends BaseTest {
         String expectedErrorMessage = "Заполните это поле";
 
         // Act
-        authForm.inputLogin(validLogin);
+        authForm.setLogin(validLogin);
         authForm.clickLoginButton();
 
         // Assert
-        String actualErrorMessage = authForm.getUserPasswordPopupErrorMessage();
-        Assertions.assertEquals(expectedErrorMessage, actualErrorMessage,
+        String actualErrorMessage = authForm.getPasswordErrorMessage();
+        assertEquals(expectedErrorMessage, actualErrorMessage,
                 "Ожидалось сообщение об ошибке при пустом пароле");
     }
 
@@ -89,12 +82,12 @@ public class AuthFormTest extends BaseTest {
         String expectedErrorMessage = "Минимум 6 символов";
 
         // Act (when)
-        authForm.inputPassword(shortPassword);
+        authForm.setPassword(shortPassword);
         authForm.clickLoginButton();
 
         // Assert (then)
-        String actualErrorMessage = authForm.getUserPasswordPopupErrorMessage();
-        Assertions.assertEquals(expectedErrorMessage, actualErrorMessage,
+        String actualErrorMessage = authForm.getPasswordErrorMessage();
+        assertEquals(expectedErrorMessage, actualErrorMessage,
                 "Сообщение об ошибке для пароля не соответствует ожидаемому");
     }
 
@@ -107,13 +100,13 @@ public class AuthFormTest extends BaseTest {
         String expectedErrorMessage = "Неверный логин или пароль";
 
         // Act
-        authForm.inputLogin(invalidLogin);
-        authForm.inputPassword(validPassword);
+        authForm.setLogin(invalidLogin);
+        authForm.setPassword(validPassword);
         authForm.clickLoginButton();
 
         // Assert
         String actualErrorMessage = authForm.getAlertDangerMessage();
-        Assertions.assertEquals(expectedErrorMessage, actualErrorMessage,
+        assertEquals(expectedErrorMessage, actualErrorMessage,
                 "Сообщение об ошибке не соответствует ожидаемому");
     }
 }
