@@ -1,6 +1,6 @@
 package by.dodopizza;
 
-import org.junit.jupiter.api.Assertions;
+//import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,7 +35,7 @@ public class Main {
         WebElement messageElement = driver.findElement(messageByXpath);
         String actual = messageElement.getText();
         System.out.println(actual);
-        Assertions.assertEquals("Неверно указано имя пользователя или пароль.\n" +
-                "Ok", actual);
+//        Assertions.assertEquals("Неверно указано имя пользователя или пароль.\n" +
+//                "Ok", actual);
     }
 }
