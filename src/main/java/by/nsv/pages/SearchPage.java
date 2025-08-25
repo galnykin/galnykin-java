@@ -18,8 +18,9 @@ public class SearchPage {
         return this;
     }
 
-    public void startSearch() {
+    public SearchPage startSearch() {
         ElementUtils.click(SEARCH_BUTTON);
+        return this;
     }
 
     public WebElement getSearchResultCard(int index) {
