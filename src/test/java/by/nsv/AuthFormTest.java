@@ -4,13 +4,14 @@ import by.nsv.pages.AuthForm;
 import by.nsv.utils.Passwords;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AuthFormTest extends BaseTest {
+class AuthFormTest extends BaseTest {
 
     AuthForm authForm;
 
@@ -21,92 +22,100 @@ public class AuthFormTest extends BaseTest {
                 .clickAuthLink();
     }
 
-    @Test
-    @DisplayName("Текст заголовка формы авторизации")
-    public void testLoginFormTitleText() {
-        assertEquals("Личный кабинет", authForm.getTitle(),
-                "Неверный заголовок формы логина");
+    @Nested
+    class PositiveTests {
+
+        @Test
+        @DisplayName("Текст заголовка формы авторизации")
+        public void testLoginFormTitleText() {
+            assertEquals("Личный кабинет", authForm.getTitle(),
+                    "Неверный заголовок формы логина");
+        }
     }
 
-    @Test
-    @DisplayName("Сообщение об ошибке при пустом логине и пароле")
-    public void testBlankLoginAndPasswordShowErrorMessages() {
-        authForm.clickLoginButton();
+    @Nested
+    class NegativeTests {
 
-        String expectedErrorMessage = "Заполните это поле";
-        assertEquals(expectedErrorMessage, authForm.getLoginErrorMessage(),
-                "Неверное сообщение об ошибке для логина");
-        assertEquals(expectedErrorMessage, authForm.getPasswordErrorMessage(),
-                "Неверное сообщение об ошибке для пароля");
-    }
+        @Test
+        @DisplayName("Сообщение об ошибке при пустом логине и пароле")
+        public void testBlankLoginAndPasswordShowErrorMessages() {
+            authForm.clickLoginButton();
 
-    @Test
-    @DisplayName("Сообщение об ошибке при пустом логине")
-    public void testBlankLoginShowsErrorMessage() {
-        // Arrange
-        String validPassword = "validPassword";
-        String expectedErrorMessage = "Заполните это поле";
+            String expectedErrorMessage = "Заполните это поле";
+            assertEquals(expectedErrorMessage, authForm.getLoginErrorMessage(),
+                    "Неверное сообщение об ошибке для логина");
+            assertEquals(expectedErrorMessage, authForm.getPasswordErrorMessage(),
+                    "Неверное сообщение об ошибке для пароля");
+        }
 
-        // Act
-        authForm.setPassword(validPassword);
-        authForm.clickLoginButton();
+        @Test
+        @DisplayName("Сообщение об ошибке при пустом логине")
+        public void testBlankLoginShowsErrorMessage() {
+            // Arrange
+            String validPassword = "validPassword";
+            String expectedErrorMessage = "Заполните это поле";
 
-        // Assert
-        String actualErrorMessage = authForm.getLoginErrorMessage();
-        assertEquals(expectedErrorMessage, actualErrorMessage,
-                "Неверное сообщение об ошибке при пустом логине");
-    }
+            // Act
+            authForm.setPassword(validPassword);
+            authForm.clickLoginButton();
 
-    @Test
-    @DisplayName("Сообщение об ошибке при пустом пароле")
-    void testBlankPasswordShowsErrorMessage() {
-        // Arrange
-        String validLogin = "validLogin";
-        String expectedErrorMessage = "Заполните это поле";
+            // Assert
+            String actualErrorMessage = authForm.getLoginErrorMessage();
+            assertEquals(expectedErrorMessage, actualErrorMessage,
+                    "Неверное сообщение об ошибке при пустом логине");
+        }
 
-        // Act
-        authForm.setLogin(validLogin);
-        authForm.clickLoginButton();
+        @Test
+        @DisplayName("Сообщение об ошибке при пустом пароле")
+        void testBlankPasswordShowsErrorMessage() {
+            // Arrange
+            String validLogin = "validLogin";
+            String expectedErrorMessage = "Заполните это поле";
 
-        // Assert
-        String actualErrorMessage = authForm.getPasswordErrorMessage();
-        assertEquals(expectedErrorMessage, actualErrorMessage,
-                "Ожидалось сообщение об ошибке при пустом пароле");
-    }
+            // Act
+            authForm.setLogin(validLogin);
+            authForm.clickLoginButton();
 
-    @Test
-    @DisplayName("Сообщение об ошибке при вводе короткого пароля")
-    void testShortPasswordShowErrorMessage() {
-        // Arrange (given)
-        String shortPassword = Passwords.generateRandomPassword(5);
-        String expectedErrorMessage = "Минимум 6 символов";
+            // Assert
+            String actualErrorMessage = authForm.getPasswordErrorMessage();
+            assertEquals(expectedErrorMessage, actualErrorMessage,
+                    "Ожидалось сообщение об ошибке при пустом пароле");
+        }
 
-        // Act (when)
-        authForm.setPassword(shortPassword);
-        authForm.clickLoginButton();
+        @Test
+        @DisplayName("Сообщение об ошибке при вводе короткого пароля")
+        void testShortPasswordShowErrorMessage() {
+            // Arrange (given)
+            String shortPassword = Passwords.generateRandomPassword(5);
+            String expectedErrorMessage = "Минимум 6 символов";
 
-        // Assert (then)
-        String actualErrorMessage = authForm.getPasswordErrorMessage();
-        assertEquals(expectedErrorMessage, actualErrorMessage,
-                "Сообщение об ошибке для пароля не соответствует ожидаемому");
-    }
+            // Act (when)
+            authForm.setPassword(shortPassword);
+            authForm.clickLoginButton();
 
-    @Test
-    @DisplayName("Сообщение об ошибке при вводе неверного логина с корректным паролем")
-    void testInvalidLoginShowsErrorMessage() {
-        // Arrange
-        String invalidLogin = "1";
-        String validPassword = "validPassword";
-        String expectedErrorMessage = "Неверный логин или пароль";
+            // Assert (then)
+            String actualErrorMessage = authForm.getPasswordErrorMessage();
+            assertEquals(expectedErrorMessage, actualErrorMessage,
+                    "Сообщение об ошибке для пароля не соответствует ожидаемому");
+        }
 
-        // Act
-        authForm.setLogin(invalidLogin);
-        authForm.setPassword(validPassword);
-        authForm.clickLoginButton();
+        @Test
+        @DisplayName("Сообщение об ошибке при вводе неверного логина с корректным паролем")
+        void testInvalidLoginShowsErrorMessage() {
+            // Arrange
+            String invalidLogin = "1";
+            String validPassword = "validPassword";
+            String expectedErrorMessage = "Неверный логин или пароль";
 
-        // Assert
-        String actualErrorMessage = authForm.getAlertDangerMessage();
-        assertEquals(expectedErrorMessage, actualErrorMessage,
-                "Сообщение об ошибке не соответствует ожидаемому");
+            // Act
+            authForm.setLogin(invalidLogin);
+            authForm.setPassword(validPassword);
+            authForm.clickLoginButton();
+
+            // Assert
+            String actualErrorMessage = authForm.getAlertDangerMessage();
+            assertEquals(expectedErrorMessage, actualErrorMessage,
+                    "Сообщение об ошибке не соответствует ожидаемому");
+        }
     }
 }
