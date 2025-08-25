@@ -22,7 +22,7 @@ public final class DriverManager {
     private static void initDriver() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }
 
     public static void quit() {
